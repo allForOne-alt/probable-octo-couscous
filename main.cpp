@@ -1,7 +1,6 @@
 #include "entity.h"
 
 bool init();
-bool collisionChecker(SDL_Rect a, SDL_Rect b);
 void close();
  
 SDL_Window* window = NULL;
@@ -9,6 +8,8 @@ SDL_Renderer* renderer = NULL;
 SDL_Surface* surfaceScreen = NULL;
 
 SDL_Rect rect = {320, 210, 80, 80};
+Player player(320, 210, 80, 80);
+Enemy enemy(330, 220, 90, 90);
 
 bool init() {
     const int SCREEN_WIDTH = 640;
@@ -33,24 +34,6 @@ bool init() {
     return success;
 }
 
-bool collisionChecker(SDL_Rect a, SDL_Rect b) {
-
-    if(a.x > b.x + b.w) {
-        return false; //no collision
-    }
-    if(b.x > a.x + a.w) {
-        return false;
-    }
-    if(a.y > b.y + b.h) {
-        return false;
-    }
-    if(b.y > a.y + a.h) {
-        return false;
-    }
-
-    return true;
-}
-
 void close() {
     SDL_DestroyWindow(window);
     window = NULL;
@@ -59,6 +42,7 @@ void close() {
 }
 
 int main(int argc, char* argv[]){
+    
     if(!init()){
         std::cerr <<"Failed to initialize! SDL_Error : "<<SDL_GetError() <<std::endl;
     }
@@ -93,11 +77,15 @@ int main(int argc, char* argv[]){
                         }
                     }
                 }
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-                SDL_RenderClear(renderer);
 
-                SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-                SDL_RenderDrawRect(renderer, &rect);
+                if(player.checkCollision(enemy)) {
+                    std::cout << "they should bounce back or somehting..." <<std::endl;
+                }
+                // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                // SDL_RenderClear(renderer);
+
+                // SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                // SDL_RenderDrawRect(renderer, &rect);
 
                 SDL_RenderPresent(renderer);
             }

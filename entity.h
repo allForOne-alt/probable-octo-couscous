@@ -19,9 +19,14 @@ class entity{
     }
 };
 
-class player : public entity{
+class Player: public entity{
 
     public:
+    Player(int x, int y, int h, int w): entity(x,  y,  h,  w){}
+
+    void update() override{
+
+    }
      
     bool checkCollision(entity& otherEntity) {
         SDL_Rect otherRect = otherEntity.getRect();
@@ -30,7 +35,6 @@ class player : public entity{
         if(myRect.x > otherRect.x + otherRect.w) {
             return false;
         }
-
         if(myRect.y > otherRect.y + otherRect.h){
             return false;
         }
@@ -43,5 +47,19 @@ class player : public entity{
 
         return true;
     }
+
+    bool render(SDL_Renderer* renderer) {
+
+        return true;
+    }
+
+
+};
+
+class Enemy: public entity{
+    public:
+    Enemy(int x, int y , int h, int w): entity(x, y, h ,w){}
+    void update() override{}
+    bool render(SDL_Renderer* renderer){return true;}
 };
     
