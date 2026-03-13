@@ -15,7 +15,7 @@ class entity{
     SDL_Rect getRect(){return rect;}
 
     virtual ~entity(){
-        std::cout << "entity destructor called" <<std::endl;
+        std::cout << "Called entity Destructor" <<std::endl;
     }
 };
 
@@ -45,6 +45,11 @@ class Player: public entity{
 
         return true;
     }
+    
+    int position() {
+        return rect.x, rect.y;
+    }
+
 
     bool render(SDL_Renderer* renderer) override {
         SDL_SetRenderDrawColor(renderer, 0,0, 255, 255);
@@ -56,7 +61,6 @@ class Player: public entity{
         rect.x = x;
         rect.y = y;
     }
-
 };
 
 class Enemy: public entity{
@@ -82,6 +86,15 @@ class Enemy: public entity{
         }
 
         return true;
+    }
+
+    int position() {
+        return rect.x, rect.y;
+    }
+
+    void setPosition(int x, int y) {
+        rect.x = x;
+        rect.y = y;
     }
  
     bool render(SDL_Renderer* renderer) override {
