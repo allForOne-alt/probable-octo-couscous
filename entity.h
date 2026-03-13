@@ -1,6 +1,13 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
+enum class RectSides{
+    rect.y,
+    rect.x,
+    rect.x + rect.w,
+    rect.y + rect.h
+};
+
 class entity{
     protected:
     SDL_Rect rect;
@@ -46,10 +53,13 @@ class Player: public entity{
         return true;
     }
     
-    int position() {
-        return rect.x, rect.y;
+    int xPosition() {
+        return rect.x;
     }
-
+    
+    int yPosition() {
+        return rect.y;
+    }
 
     bool render(SDL_Renderer* renderer) override {
         SDL_SetRenderDrawColor(renderer, 0,0, 255, 255);
@@ -87,11 +97,14 @@ class Enemy: public entity{
 
         return true;
     }
-
-    int position() {
-        return rect.x, rect.y;
+    
+    int xPosition(){
+        return rect.x;
     }
 
+    int yPosition() {
+        return rect.y;
+    }
     void setPosition(int x, int y) {
         rect.x = x;
         rect.y = y;
@@ -102,6 +115,5 @@ class Enemy: public entity{
         SDL_RenderDrawRect(renderer, &rect);
         return true;
     }
-
 };
     

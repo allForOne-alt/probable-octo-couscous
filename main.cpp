@@ -8,7 +8,7 @@ SDL_Renderer* renderer = NULL;
 SDL_Surface* surfaceScreen = NULL;
 
 Player player(320, 210, 80, 80);
-Enemy enemy(330, 220, 90, 90);
+Enemy enemy(230, 220, 90, 90);
 
 bool init() {
     const int SCREEN_WIDTH = 640;
@@ -75,10 +75,35 @@ int main(int argc, char* argv[]){
                             break;
                         }
                     }
+                    else if(e.type = SDL_KEYDOWN){
+                        switch(e.key.keysym.sym){
+                            case SDLK_w:
+                            enemy.setPosition(enemy.getRect().x, player.getRect().y - 30);
+                            break;
+                            
+                            case SDLK_s:
+                            enemy.setPosition(enemy.getRect().x, enemy.getRect().y + 30);
+                            break;
+
+                            case SDLK_a:
+                            enemy.setPosition(enemy.getRect().x - 30, enemy.getRect().y);
+                            break;
+
+                            case SDLK_d:
+                            enemy.setPosition(enemy.getRect().x + 30, enemy.getRect().y);
+                            break;
+
+                            default:
+                            break;
+                        }
+                    }
                 }
 
+                std::cout << "Player x : "<<player.xPosition() <<" y: "<<player.yPosition()<<std::endl;
+
                 if(player.checkCollision(enemy)) {
-                    std::cout << "they should bounce back or somehting..." <<std::endl;
+                    std::cout << "Collision detected"<<std::endl;
+
                 }
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                 SDL_RenderClear(renderer);
