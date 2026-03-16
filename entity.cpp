@@ -53,7 +53,23 @@ collisionSides getCollidedSides(SDL_Rect a, SDL_Rect b) {
 } 
 
 std::ostream& operator<<(std::ostream& out, const collisionSides sides) {
-    out << sides;
+    switch(sides) {
+        case collisionSides::BOTTOM:
+            out << "BOTTOM";
+            break;
+        case collisionSides::LEFT:
+            out <<"LEFT";
+            break;
+        case collisionSides::RIGHT:
+            out << "RIGHT";
+            break;
+        case collisionSides::TOP:
+            out<< "TOP";
+            break;
+        case collisionSides::NONE:
+            out << "NONE";
+            break;
+    }
     return out;
 }
 
