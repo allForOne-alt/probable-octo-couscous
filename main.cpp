@@ -71,12 +71,6 @@ int main(int argc, char* argv[]){
                             player.setPosition(player.getRect().x + 30, player.getRect().y);
                             break;
 
-                            default:
-                            break;
-                        }
-                    }
-                    else if(e.type = SDL_KEYDOWN){
-                        switch(e.key.keysym.sym){
                             case SDLK_w:
                             enemy.setPosition(enemy.getRect().x, player.getRect().y - 30);
                             break;
@@ -96,14 +90,13 @@ int main(int argc, char* argv[]){
                             default:
                             break;
                         }
-                    }
                 }
-
+            }
                 std::cout << "Player x : "<<player.xPosition() <<" y: "<<player.yPosition()<<std::endl;
 
+                collisionSides playerCollision = getCollidedSides(player.getRect(), enemy.getRect());
                 if(player.checkCollision(enemy)) {
-                    std::cout << "Collision detected"<<std::endl;
-
+                    std::cout << "Collision from : " << playerCollision;
                 }
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                 SDL_RenderClear(renderer);

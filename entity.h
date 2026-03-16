@@ -9,34 +9,8 @@ enum class collisionSides{
     NONE
 };
 
-collisionSides getCollidedSides(SDL_Rect a, SDL_Rect b) {
-
-    // a-bottom-collision
-    if(a.y < b.y && a.y + a.h >= b.y){
-        return collisionSides::BOTTOM;
-    }
-    // a-top-collision
-    if(b.y < a.y && a.y <= b.y + b.h) {
-        return collisionSides::TOP;
-    }
-    // a-right-collisino
-    if(a.x + a.w >= b.x && a.x < b.x + b.w){
-        return collisionSides::RIGHT;
-    }
-    //a-left-collision
-    if(a.x + a.w > b.x && a.x <= b.x + b.w){
-        return collisionSides::LEFT;
-    }
-
-    return collisionSides::NONE;
-
-} 
-
-std::ostream& operator<<(std::ostream& out, const collisionSides side) {
-    out << side;
-    return out;
-
-}
+collisionSides getCollidedSides(SDL_Rect a, SDL_Rect b);
+std::ostream& operator<<(std::ostream& out, const collisionSides sides);
 
 class  entity{
     protected:
