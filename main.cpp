@@ -41,6 +41,7 @@ void close() {
 }
 
 int main(int argc, char* argv[]){
+    bool hasCollided = false;
     
     if(!init()){
         std::cerr <<"Failed to initialize! SDL_Error : "<<SDL_GetError() <<std::endl;
@@ -75,29 +76,36 @@ int main(int argc, char* argv[]){
             }
 
                 std::cout << "Player x : "<<player.xPosition() <<" y: "<<player.yPosition()<<std::endl;
-
-                collisionSides playerCollision = getCollidedSides(player.getRect(), enemy.getRect());
+                
                 if(player.checkCollision(enemy)) {
-                    std::cout << "Collision from : " << playerCollision<<std::endl;
+                    if(!hasCollided){
+                    collisionSides playerCollision = getCollidedSides(player.getRect(), enemy.getRect());
+
                     switch(playerCollision){
 
                         case collisionSides::TOP:
-                            enemy.setPosition(enemy.getRect().x, enemy.getRect().y - 50);
+                            enemy.setPosition(enemy.getRect().x, enemy.getRect().y - 40);
                             break;
-                        
+                    
                         case collisionSides::BOTTOM:
-                            enemy.setPosition(enemy.getRect().x, enemy.getRect().y + 50);
+                            enemy.setPosition(enemy.getRect().x, enemy.getRect().y + 40);
                             break;
                         
                         case collisionSides::LEFT:
-                            enemy.setPosition(enemy.getRect().x - 50, enemy.getRect().y);
+                            enemy.setPosition(enemy.getRect().x - 40, enemy.getRect().y);
                             break;
                         
                         case collisionSides::RIGHT:
-                            enemy.setPosition(enemy.getRect().x + 50, enemy.getRect().y);
+                            enemy.setPosition(enemy.getRect().x + 40, enemy.getRect().y);
                             break;
                     }
+                    hasCollided = true;
                 }
+            }
+            else {
+                hasCollided = false; // no longer collidign
+
+            }
 
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                 SDL_RenderClear(renderer);
